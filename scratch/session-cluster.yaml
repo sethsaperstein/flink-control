@@ -1,0 +1,19 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  namespace: default
+  name: session-test
+spec:
+  image: flink:1.16
+  flinkVersion: v1_16
+  serviceAccount: flink
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "2"

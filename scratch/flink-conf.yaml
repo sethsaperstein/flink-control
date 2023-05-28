@@ -1,0 +1,25 @@
+jobmanager.rpc.address: session-test.default
+# rest.address: session-test.default
+#
+#blob.server.port: 6124
+#taskmanager.memory.process.size: 2048m
+#kubernetes.jobmanager.annotations: flinkdeployment.flink.apache.org/generation:2
+#kubernetes.internal.jobmanager.entrypoint.class: org.apache.flink.kubernetes.entrypoint.KubernetesSessionClusterEntrypoint
+#kubernetes.jobmanager.replicas: 1
+#jobmanager.rpc.address: session-test.default
+#web.cancel.enable: false
+#execution.target: kubernetes-session
+#jobmanager.memory.process.size: 2048m
+#kubernetes.taskmanager.cpu: 1.0
+#kubernetes.service-account: flink
+#kubernetes.cluster-id: session-test
+#taskmanager.rpc.port: 6122
+#internal.cluster.execution-mode: NORMAL
+#kubernetes.container.image: flink:1.16
+#parallelism.default: 1
+#kubernetes.jobmanager.cpu: 1.0
+#kubernetes.namespace: default
+#taskmanager.numberOfTaskSlots: 2
+#kubernetes.rest-service.exposed.type: ClusterIP
+#kubernetes.jobmanager.owner.reference: controller:false,name:session-test,uid:1c1e576b-5fb1-4c40-8793-cfb027d517de,kind:FlinkDeployment,apiVersion:flink.apache.org/v1beta1,blockOwnerDeletion:false
+#$internal.flink.version: v1_16

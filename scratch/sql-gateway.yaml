@@ -1,0 +1,54 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: session-test-sql-gateway-rest
+#spec:
+#  selector:
+#    app: session-test-sql-gateway
+#  ports:
+#    - protocol: TCP
+#      port: 8080
+#      targetPort: 8080
+#---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: session-test-sql-gateway
+  labels:
+    app: session-test-sql-gateway
+spec:
+  serviceAccountName: sql-gateway
+  containers:
+    - name: my-app-container
+      image: sql-gateway:local9
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8083
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sql-gateway
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sql-gateway
+rules:
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list"]  # Adjust the verbs according to your requirements
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sql-gateway
+subjects:
+  - kind: ServiceAccount
+    name: sql-gateway
+roleRef:
+  kind: Role
+  name: sql-gateway
+  apiGroup: rbac.authorization.k8s.io
