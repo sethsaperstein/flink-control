@@ -4,6 +4,7 @@ import com.sethsaperstein.flinkcontrolapi.config.FlinkDeploymentClientManager;
 import com.sethsaperstein.flinkcontrolapi.config.KubernetesClientManager;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.kubernetes.client.dsl.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,5 +162,39 @@ public class SqlGatewayService {
 
         return kubernetesClientManager.getClient().services().create(service);
     }
+
+    public void delete(String name, String namespace) {
+        deletePod(name, namespace);
+        deleteConfigMap(name, namespace);
+    }
+
+    private void deleteConfigMap(String name, String namespace) {
+        KubernetesClient kubernetesClient = kubernetesClientManager.getClient();;
+        String configMapName = name + SQL_GATEWAY_SUFFIX;
+        Resource<ConfigMap> resource = kubernetesClient
+            .configMaps()
+            .inNamespace(namespace)
+            .withName(configMapName);
+
+        if (resource.get() != null) {
+            logger.info("Deleting ConfigMap: {}", name);
+            resource.delete();
+        }
+    }
+
+    private void deletePod(String name, String namespace) {
+        KubernetesClient kubernetesClient = kubernetesClientManager.getClient();
+        String podName = name + SQL_GATEWAY_SUFFIX;
+        Resource<Pod> resource = kubernetesClient
+            .pods()
+            .inNamespace(namespace)
+            .withName(podName);
+
+        if (resource.get() != null) {
+            logger.info("Deleting Pod: {}", name);
+            resource.delete();
+        }
+    }
+
 }
 

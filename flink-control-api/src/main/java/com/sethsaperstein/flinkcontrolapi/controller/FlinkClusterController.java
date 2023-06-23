@@ -1,17 +1,17 @@
 package com.sethsaperstein.flinkcontrolapi.controller;
 
-import com.sethsaperstein.flinkcontrolapi.model.FlinkCluster;
+import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterCreateRequest;
+import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterCreateResponse;
+import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterDeleteRequest;
+import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterDeleteResponse;
 import com.sethsaperstein.flinkcontrolapi.service.FlinkClusterService;
 import com.sethsaperstein.flinkcontrolapi.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
-import java.util.UUID;
+import javax.validation.Valid;
+import java.util.concurrent.TimeoutException;
 
 
 @RestController
@@ -26,19 +26,27 @@ public class FlinkClusterController {
     }
 
     @PostMapping("/session")
-    public ResponseEntity<FlinkCluster> createSessionCluster(@RequestBody FlinkCluster flinkClusterRequest) {
+    public ResponseEntity<FlinkClusterCreateResponse> createSessionCluster(@RequestBody FlinkClusterCreateRequest request) {
         String name;
-        if (flinkClusterRequest.getClusterName() != null) {
-            name = flinkClusterRequest.getClusterName();
+        if (request.getClusterName() != null) {
+            name = request.getClusterName();
         } else {
             // TODO: check collision
             name = Utils.generateRandomName();
         }
 
         flinkClusterService.createFlinkSessionCluster(name);
-        FlinkCluster flinkClusterResponse = FlinkCluster.builder().clusterName(name).build();
-        flinkClusterResponse.setClusterName(name);
+        FlinkClusterCreateResponse response = FlinkClusterCreateResponse.builder().clusterName(name).build();
+        response.setClusterName(name);
 
-        return ResponseEntity.ok(flinkClusterResponse);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/session")
+    public ResponseEntity<FlinkClusterDeleteResponse> deleteSessionCluster(@RequestBody @Valid FlinkClusterDeleteRequest request) throws TimeoutException {
+        String name = request.getClusterName();
+        flinkClusterService.deleteFlinkSessionCluster(name);
+        FlinkClusterDeleteResponse response = FlinkClusterDeleteResponse.builder().clusterName(name).build();
+        return ResponseEntity.ok(response);
     }
 }

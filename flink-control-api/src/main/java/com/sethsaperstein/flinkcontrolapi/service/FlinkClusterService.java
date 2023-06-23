@@ -2,6 +2,7 @@ package com.sethsaperstein.flinkcontrolapi.service;
 
 import com.sethsaperstein.flinkcontrolapi.config.FlinkDeploymentClientManager;
 import com.sethsaperstein.flinkcontrolapi.config.KubernetesClientManager;
+import com.sethsaperstein.flinkcontrolapi.util.Utils;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.rbac.Role;
 import io.fabric8.kubernetes.api.model.rbac.RoleBinding;
@@ -19,11 +20,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class FlinkClusterService {
+    private static final Long DELETE_TIMEOUT_MS = 10000L;
     private static final Logger logger = LoggerFactory.getLogger(FlinkClusterService.class);
     private final KubernetesClientManager kubernetesClientManager;
     private final FlinkDeploymentClientManager flinkDeploymentClientManager;
@@ -220,5 +224,27 @@ public class FlinkClusterService {
             .create();
         logger.info("Successfully created flink session cluster: {}", clusterName);
         return newFlinkDeployment;
+    }
+
+    public void deleteFlinkSessionCluster(String name) throws TimeoutException {
+        deleteFlinkDeployment(name, name);
+        sqlGatewayService.delete(name, name);
+    }
+
+    private void deleteFlinkDeployment(String name, String namespace) throws TimeoutException {
+        Resource<FlinkDeployment> resource = flinkDeploymentClientManager
+            .getFlinkDeploymentClient()
+            .inNamespace(namespace)
+            .withName(name);
+
+        if (resource.get() != null) {
+            logger.info("Deleting FlinkDeployment: {}", name);
+            resource.delete();
+            Utils.waitForFlinkDeploymentTeardown(
+                name,
+                namespace,
+                Duration.ofSeconds(20),
+                flinkDeploymentClientManager.getFlinkDeploymentClient());
+        }
     }
 }
