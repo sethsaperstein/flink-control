@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
@@ -239,11 +240,12 @@ public class FlinkClusterService {
 
         if (resource.get() != null) {
             logger.info("Deleting FlinkDeployment: {}", name);
-            resource.delete();
+            List<StatusDetails> details = resource.delete();
+            logger.info(details.toString());
             Utils.waitForFlinkDeploymentTeardown(
                 name,
                 namespace,
-                Duration.ofSeconds(20),
+                Duration.ofSeconds(200),
                 flinkDeploymentClientManager.getFlinkDeploymentClient());
         }
     }

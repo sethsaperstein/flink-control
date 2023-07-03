@@ -30,8 +30,10 @@ public class SqlGatewayService {
     }
 
     public void create(String name, Namespace namespace, ServiceAccount serviceAccount) {
-        ConfigMap configMap = createConfigMapIfNotExists(name, namespace);
-        Pod pod = createPodIfNotExists(name, namespace, serviceAccount, configMap);
+        // TODO: add this back if env var alone is not enough. Env var should override the default flink conf here: https://github.com/apache/flink-docker/blob/master/1.16/scala_2.12-java8-ubuntu/docker-entrypoint.sh#L78C5-L78C22
+        // ConfigMap configMap = createConfigMapIfNotExists(name, namespace);
+        // Pod pod = createPodIfNotExists(name, namespace, serviceAccount, configMap);
+        Pod pod = createPodIfNotExists(name, namespace, serviceAccount);
         io.fabric8.kubernetes.api.model.Service service = createServiceIfNotExists(name, pod, namespace);
     }
 
@@ -65,8 +67,8 @@ public class SqlGatewayService {
     private Pod createPodIfNotExists(
         String name,
         Namespace namespace,
-        ServiceAccount serviceAccount,
-        ConfigMap configMap
+        ServiceAccount serviceAccount
+//        ConfigMap configMap
     ) {
         KubernetesClient kubernetesClient = kubernetesClientManager.getClient();
         String podName = name + SQL_GATEWAY_SUFFIX;
@@ -104,17 +106,17 @@ public class SqlGatewayService {
                         .withName("JOB_MANAGER_RPC_ADDRESS")
                         .withValue(jobManagerRpcAddress)
                     .endEnv()
-                    .addNewVolumeMount()
-                        .withName("config-volume")
-                        .withMountPath("/opt/flink/conf")
-                    .endVolumeMount()
+//                    .addNewVolumeMount()
+//                        .withName("config-volume")
+//                        .withMountPath("/opt/flink/conf")
+//                    .endVolumeMount()
                 .endContainer()
-                .addNewVolume()
-                    .withName("config-volume")
-                    .withNewConfigMap()
-                        .withName(configMap.getMetadata().getName())
-                    .endConfigMap()
-                .endVolume()
+//                .addNewVolume()
+//                    .withName("config-volume")
+//                    .withNewConfigMap()
+//                        .withName(configMap.getMetadata().getName())
+//                    .endConfigMap()
+//                .endVolume()
                 .endSpec()
             .build();
 
