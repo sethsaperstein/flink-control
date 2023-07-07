@@ -20,6 +20,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>com.fasterxml.jackson.core</groupId>-->
+<!--					<artifactId>jackson-databind</artifactId>-->
+<!--				</exclusion>-->
+<!--				&lt;!&ndash; Exclude other Jackson modules if needed &ndash;&gt;-->
+<!--			</exclusions>-->
 		</dependency>
 
 		<!-- Spring Boot Starter Web for REST API -->

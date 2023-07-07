@@ -1,0 +1,898 @@
+* 
+* ==> Audit <==
+* |---------|--------------------------------|----------|----------|---------|---------------------|---------------------|
+| Command |              Args              | Profile  |   User   | Version |     Start Time      |      End Time       |
+|---------|--------------------------------|----------|----------|---------|---------------------|---------------------|
+| start   |                                | minikube | sethsaps | v1.30.1 | 06 Jun 23 18:34 PDT | 06 Jun 23 18:35 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 06 Jun 23 20:01 PDT | 06 Jun 23 20:01 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 17 Jun 23 17:56 PDT | 17 Jun 23 17:56 PDT |
+| service | list                           | minikube | sethsaps | v1.30.1 | 17 Jun 23 18:01 PDT | 17 Jun 23 18:01 PDT |
+| service | foo-rest                       | minikube | sethsaps | v1.30.1 | 17 Jun 23 19:04 PDT |                     |
+| service | foo-rest -n foo                | minikube | sethsaps | v1.30.1 | 17 Jun 23 19:04 PDT |                     |
+| service | foo-sql-gateway -n foo         | minikube | sethsaps | v1.30.1 | 17 Jun 23 21:31 PDT |                     |
+| service | flinktest-rest                 | minikube | sethsaps | v1.30.1 | 21 Jun 23 20:24 PDT |                     |
+| service | flinktest-rest -n flinktest    | minikube | sethsaps | v1.30.1 | 21 Jun 23 20:24 PDT | 21 Jun 23 20:24 PDT |
+| service | flinktest-sql-gateway -n       | minikube | sethsaps | v1.30.1 | 21 Jun 23 20:25 PDT | 21 Jun 23 20:26 PDT |
+|         | flinktest                      |          |          |         |                     |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 22 Jun 23 21:03 PDT | 22 Jun 23 21:06 PDT |
+| service | flink-control-api --url        | minikube | sethsaps | v1.30.1 | 22 Jun 23 21:06 PDT |                     |
+| service | flink-control-api --url        | minikube | sethsaps | v1.30.1 | 22 Jun 23 21:19 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 22 Jun 23 21:25 PDT | 22 Jun 23 21:27 PDT |
+| service | flink-control-api --url        | minikube | sethsaps | v1.30.1 | 22 Jun 23 22:28 PDT |                     |
+| image   | rm flink-control-api:local     | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:01 PDT | 22 Jun 23 23:01 PDT |
+| image   | rm flink-control-api:local     | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:01 PDT | 22 Jun 23 23:01 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:02 PDT | 22 Jun 23 23:05 PDT |
+| service | flink-control-api -n integ     | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:06 PDT | 22 Jun 23 23:08 PDT |
+|         | --url                          |          |          |         |                     |                     |
+| service | flink-control-api -n integ     | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:26 PDT | 22 Jun 23 23:28 PDT |
+|         | --url                          |          |          |         |                     |                     |
+| service | list                           | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:27 PDT | 22 Jun 23 23:27 PDT |
+| service | flink-control-api -n integ     | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:28 PDT | 22 Jun 23 23:42 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:43 PDT | 22 Jun 23 23:43 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:47 PDT | 22 Jun 23 23:47 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 22 Jun 23 23:57 PDT | 22 Jun 23 23:57 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 23 Jun 23 00:04 PDT | 23 Jun 23 00:04 PDT |
+| stop    |                                | minikube | sethsaps | v1.30.1 | 23 Jun 23 00:10 PDT | 23 Jun 23 00:11 PDT |
+| start   |                                | minikube | sethsaps | v1.30.1 | 23 Jun 23 00:11 PDT | 23 Jun 23 00:12 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 23 Jun 23 00:13 PDT | 23 Jun 23 00:13 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 23 Jun 23 00:16 PDT | 23 Jun 23 00:16 PDT |
+| service | flink-control-api -n integ     | minikube | sethsaps | v1.30.1 | 28 Jun 23 19:41 PDT | 28 Jun 23 19:45 PDT |
+|         | --url                          |          |          |         |                     |                     |
+| service | flink-control-api -n integ     | minikube | sethsaps | v1.30.1 | 28 Jun 23 19:58 PDT | 28 Jun 23 19:58 PDT |
+|         | --url                          |          |          |         |                     |                     |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 28 Jun 23 20:00 PDT | 28 Jun 23 20:00 PDT |
+| ip      |                                | minikube | sethsaps | v1.30.1 | 28 Jun 23 20:40 PDT | 28 Jun 23 20:40 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 13:42 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 13:44 PDT | 02 Jul 23 13:45 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 16:58 PDT | 02 Jul 23 17:01 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 20:38 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 20:40 PDT | 02 Jul 23 20:43 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 21:01 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 21:03 PDT | 02 Jul 23 21:05 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:06 PDT | 02 Jul 23 22:10 PDT |
+| image   | rm flink-control-api:local     | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:18 PDT | 02 Jul 23 22:18 PDT |
+| image   | rm flink-control-api:local     | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:19 PDT | 02 Jul 23 22:19 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:19 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:21 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:24 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 02 Jul 23 22:25 PDT | 02 Jul 23 22:28 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 03 Jul 23 18:13 PDT | 03 Jul 23 18:16 PDT |
+| addons  | enable ingress                 | minikube | sethsaps | v1.30.1 | 03 Jul 23 21:48 PDT | 03 Jul 23 21:49 PDT |
+| addons  | list                           | minikube | sethsaps | v1.30.1 | 03 Jul 23 21:51 PDT | 03 Jul 23 21:51 PDT |
+| addons  | disable ingress                | minikube | sethsaps | v1.30.1 | 03 Jul 23 21:56 PDT | 03 Jul 23 21:56 PDT |
+| addons  | enable ingress                 | minikube | sethsaps | v1.30.1 | 03 Jul 23 21:57 PDT | 03 Jul 23 21:58 PDT |
+| tunnel  |                                | minikube | sethsaps | v1.30.1 | 03 Jul 23 21:58 PDT | 03 Jul 23 22:48 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 03 Jul 23 22:57 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 03 Jul 23 22:58 PDT |                     |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 03 Jul 23 23:00 PDT | 03 Jul 23 23:03 PDT |
+| image   | load flink-control-api:local   | minikube | sethsaps | v1.30.1 | 03 Jul 23 23:39 PDT | 03 Jul 23 23:42 PDT |
+| stop    |                                | minikube | sethsaps | v1.30.1 | 03 Jul 23 23:46 PDT | 03 Jul 23 23:48 PDT |
+| start   |                                | minikube | sethsaps | v1.30.1 | 03 Jul 23 23:48 PDT |                     |
+|---------|--------------------------------|----------|----------|---------|---------------------|---------------------|
+
+* 
+* ==> Last Start <==
+* Log file created at: 2023/07/03 23:48:16
+Running on machine: Seths-MacBook-Pro
+Binary: Built with gc go1.20.2 for darwin/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0703 23:48:16.390659   22612 out.go:296] Setting OutFile to fd 1 ...
+I0703 23:48:16.391102   22612 out.go:348] isatty.IsTerminal(1) = true
+I0703 23:48:16.391109   22612 out.go:309] Setting ErrFile to fd 2...
+I0703 23:48:16.391118   22612 out.go:348] isatty.IsTerminal(2) = true
+I0703 23:48:16.391393   22612 root.go:336] Updating PATH: /Users/sethsaps/.minikube/bin
+I0703 23:48:16.395317   22612 out.go:303] Setting JSON to false
+I0703 23:48:16.480394   22612 start.go:125] hostinfo: {"hostname":"Seths-MacBook-Pro.local","uptime":2522088,"bootTime":1685931208,"procs":557,"os":"darwin","platform":"darwin","platformFamily":"Standalone Workstation","platformVersion":"12.6.2","kernelVersion":"21.6.0","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"","hostId":"783e1903-4ca8-5324-8589-743dc5d77a6e"}
+W0703 23:48:16.480506   22612 start.go:133] gopshost.Virtualization returned error: not implemented yet
+I0703 23:48:16.496620   22612 out.go:177] 😄  minikube v1.30.1 on Darwin 12.6.2
+I0703 23:48:16.541710   22612 notify.go:220] Checking for updates...
+I0703 23:48:16.550209   22612 config.go:182] Loaded profile config "minikube": Driver=docker, ContainerRuntime=docker, KubernetesVersion=v1.25.3
+I0703 23:48:16.585654   22612 out.go:177] 🆕  Kubernetes 1.26.3 is now available. If you would like to upgrade, specify: --kubernetes-version=v1.26.3
+I0703 23:48:16.613151   22612 driver.go:375] Setting default libvirt URI to qemu:///system
+I0703 23:48:16.855995   22612 docker.go:121] docker version: linux-20.10.13:Docker Desktop 4.6.1 (76265)
+I0703 23:48:16.856397   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:17.700274   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:17.1034861 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:17.724105   22612 out.go:177] ✨  Using the docker driver based on existing profile
+I0703 23:48:17.772429   22612 start.go:295] selected driver: docker
+I0703 23:48:17.772461   22612 start.go:870] validating driver "docker" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 Memory:4000 CPUs:2 DiskSize:20000 VMDriver: Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.25.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP:192.168.49.2 Port:8443 KubernetesVersion:v1.25.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[default-storageclass:true ingress:true storage-provisioner:true] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:/Users:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP:}
+I0703 23:48:17.773042   22612 start.go:881] status for docker: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:}
+I0703 23:48:17.773275   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:18.140378   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:18.017672 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:18.142678   22612 cni.go:84] Creating CNI manager for ""
+I0703 23:48:18.143051   22612 cni.go:157] "docker" driver + "docker" container runtime found on kubernetes v1.24+, recommending bridge
+I0703 23:48:18.143384   22612 start_flags.go:319] config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 Memory:4000 CPUs:2 DiskSize:20000 VMDriver: Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:0 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.25.3 ClusterName:minikube Namespace:default APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI: NodeIP: NodePort:8443 NodeName:} Nodes:[{Name: IP:192.168.49.2 Port:8443 KubernetesVersion:v1.25.3 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[default-storageclass:true ingress:true storage-provisioner:true] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s Mount:false MountString:/Users:/minikube-host Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP:}
+I0703 23:48:18.167067   22612 out.go:177] 👍  Starting control plane node minikube in cluster minikube
+I0703 23:48:18.193349   22612 cache.go:120] Beginning downloading kic base image for docker with docker
+I0703 23:48:18.218941   22612 out.go:177] 🚜  Pulling base image ...
+I0703 23:48:18.256704   22612 preload.go:132] Checking if preload exists for k8s version v1.25.3 and runtime docker
+I0703 23:48:18.256997   22612 image.go:79] Checking for gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 in local docker daemon
+I0703 23:48:18.257314   22612 preload.go:148] Found local preload: /Users/sethsaps/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.25.3-docker-overlay2-amd64.tar.lz4
+I0703 23:48:18.257401   22612 cache.go:57] Caching tarball of preloaded images
+I0703 23:48:18.270718   22612 preload.go:174] Found /Users/sethsaps/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.25.3-docker-overlay2-amd64.tar.lz4 in cache, skipping download
+I0703 23:48:18.270757   22612 cache.go:60] Finished verifying existence of preloaded tar for  v1.25.3 on docker
+I0703 23:48:18.270961   22612 profile.go:148] Saving config to /Users/sethsaps/.minikube/profiles/minikube/config.json ...
+I0703 23:48:18.546052   22612 image.go:83] Found gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 in local docker daemon, skipping pull
+I0703 23:48:18.546107   22612 cache.go:143] gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106 exists in daemon, skipping load
+I0703 23:48:18.548334   22612 cache.go:193] Successfully downloaded all kic artifacts
+I0703 23:48:18.549528   22612 start.go:364] acquiring machines lock for minikube: {Name:mk35ac0d70bbf964405e40c3937480693119125a Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I0703 23:48:18.549855   22612 start.go:368] acquired machines lock for "minikube" in 292.857µs
+I0703 23:48:18.550557   22612 start.go:96] Skipping create...Using existing machine configuration
+I0703 23:48:18.551802   22612 fix.go:55] fixHost starting: 
+I0703 23:48:18.552334   22612 cli_runner.go:164] Run: docker container inspect minikube --format={{.State.Status}}
+I0703 23:48:18.829890   22612 fix.go:103] recreateIfNeeded on minikube: state=Stopped err=<nil>
+W0703 23:48:18.829949   22612 fix.go:129] unexpected machine state, will restart: <nil>
+I0703 23:48:18.849469   22612 out.go:177] 🔄  Restarting existing docker container for "minikube" ...
+I0703 23:48:18.881538   22612 cli_runner.go:164] Run: docker start minikube
+W0703 23:48:33.231978   22612 cli_runner.go:211] docker start minikube returned with exit code 1
+I0703 23:48:33.231995   22612 cli_runner.go:217] Completed: docker start minikube: (14.350709983s)
+I0703 23:48:33.232130   22612 cli_runner.go:164] Run: docker inspect minikube
+I0703 23:48:33.500346   22612 errors.go:84] Postmortem inspect ("docker inspect minikube"): -- stdout --
+[
+    {
+        "Id": "1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b",
+        "Created": "2023-05-09T03:48:56.5183546Z",
+        "Path": "/usr/local/bin/entrypoint",
+        "Args": [
+            "/sbin/init"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 130,
+            "Error": "error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument",
+            "StartedAt": "2023-06-23T07:11:09.3603883Z",
+            "FinishedAt": "2023-07-04T06:47:12.5829513Z"
+        },
+        "Image": "sha256:67a4b1138d2d65c110e3ef7ba49c9e75d8d87f1150266297d90da979cfcc62e3",
+        "ResolvConfPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/hostname",
+        "HostsPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/hosts",
+        "LogPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b-json.log",
+        "Name": "/minikube",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/lib/modules:/lib/modules:ro",
+                "minikube:/var"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "minikube",
+            "PortBindings": {
+                "22/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "2376/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "32443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "8443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": true,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "seccomp=unconfined",
+                "apparmor=unconfined",
+                "label=disable"
+            ],
+            "Tmpfs": {
+                "/run": "",
+                "/tmp": ""
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 4194304000,
+            "NanoCpus": 2000000000,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 4194304000,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": null,
+            "ReadonlyPaths": null
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb-init/diff:/var/lib/docker/overlay2/53767edb2d390f5502704d5f6fdc79cbd2ed2f8ba016ded6fc2732ce58267655/diff:/var/lib/docker/overlay2/a5eb719f252a00f4dde541846451fedfb23052954ccfcce754a8d300fe8db098/diff:/var/lib/docker/overlay2/0048941754c44692fca938b6515781f04a88d528e4e5e15423fa5d0ace7383a3/diff:/var/lib/docker/overlay2/0e21ebb6acf5d94a52c3d3727fef37ed9f15b0b4fa6cbd1344f8c02daa2348c4/diff:/var/lib/docker/overlay2/f9f1c5b9365866ce2926717e53d832d4174d714aa35f73c1c0ad76f465706fe2/diff:/var/lib/docker/overlay2/6c81125365b17a01f90d43458af70e04bfd8054b2f4ae145dd669beb94ce2581/diff:/var/lib/docker/overlay2/f2a64dc84d828399147e7616bf74e31dc9aa17272e975ff20814b24ba33fa55a/diff:/var/lib/docker/overlay2/940eb35880011f27cef8e4d5e1453a259e5e7eb5085740c626a67230f270e75b/diff:/var/lib/docker/overlay2/6baabcabec1fecceb4ff23cb2d4373078ab535278d48e89f81aea7e61b244985/diff:/var/lib/docker/overlay2/b34751b4e1583f3e05d7b4b5d6d397baeddb97116491fd434d4aef5786282e4b/diff:/var/lib/docker/overlay2/b5953c66d2e8d13d46efd9f10a649815dbbb151c7cdacdc4cde38cd385b64ceb/diff:/var/lib/docker/overlay2/c2bda4786a82e8b020b761fdc6f5b37ca7e60899f7a69d02463b7600196affd7/diff:/var/lib/docker/overlay2/cbaf99310e8a942a07106c59b56a7f2a16cb2130fe9c40a6d9a64af10e493cf3/diff:/var/lib/docker/overlay2/cec3c10e295c957516655c4dc2a4a3387047d861db9d84252db6b1dbd864e780/diff:/var/lib/docker/overlay2/8428435cff3d3211ce1ad966d64362a92d0b71a6e4bd4461dc4c2761732919d5/diff:/var/lib/docker/overlay2/f32f6a20ae3b181b887fcabc92ad7ac0d444af9b0b1b9999620a146f83f826f4/diff:/var/lib/docker/overlay2/0c442d41a9d91e94e14a2884baf8c0c7484a35ba9effa5a064253e85899aa2ce/diff:/var/lib/docker/overlay2/c5727728fb5f765315aa1b54a41f45708755f257c1f23d670d96ae77c33cdd36/diff:/var/lib/docker/overlay2/32cd41ca5a3e8a7730068fc0b5f6e97d13d2e000412a97d4c4c2474b4bd8b5bf/diff:/var/lib/docker/overlay2/d4b7d9b5e491df4332283ceff1fce449ddb1060a8d905351a5d7bf4a4f3f3a92/diff:/var/lib/docker/overlay2/64214d0a485b3f7c2d2724f68439923ff7c628ed6354c176d07db1edf86b9952/diff:/var/lib/docker/overlay2/486b26417d1c5efc0adf3a366ca4d9dddda5f6d3b81c64a1a991df2abd5bca6f/diff:/var/lib/docker/overlay2/17fceffe3d5885669a773764fcfe71f49de92f8e43863577ce8984303b12fce3/diff:/var/lib/docker/overlay2/1e65b9cd05b4760409539b7ce494e9898da4eb3f025f402264f72a20d966aa83/diff:/var/lib/docker/overlay2/782a8bd5ae7d1b1786b4ea53b429caf9a75e381bf1753184bf5c7a9b919dae32/diff:/var/lib/docker/overlay2/f7ab68be00e93e1d6bcc6098d78c76923510c5eb446528f91df838fdb7d6c921/diff:/var/lib/docker/overlay2/4fabdfc5031aee090afd0586f4a84b6c7c50c3a8e9d8bc51f02750f7c3ce41cd/diff:/var/lib/docker/overlay2/b27616930e8632fde0df2e4e05db92b5d74b214e0f32de0b90c9bd301685e74a/diff:/var/lib/docker/overlay2/5017cdb7ac12a046e3991289e29471a74c20247df46dfa98e3f91713feaaa512/diff:/var/lib/docker/overlay2/b537dd830f18b136089a2080591189fda7f2a6d9919bf50ac34a2595f8dc78b7/diff:/var/lib/docker/overlay2/187dbc40c950372260fc529eadec7059b92743d03628c1305010bf1120dc5de4/diff:/var/lib/docker/overlay2/beb83ce9d06ad92de52adc16420964374dc59aa26646c025c58ed845d98a32a5/diff:/var/lib/docker/overlay2/442cbce5c0af1990a7c76f1ac53425182828847b37ab113f09639e2c7797da27/diff:/var/lib/docker/overlay2/058f15a1f159492760c7aa13c42ae4b73c58431a15df17763a7da17940c355c8/diff:/var/lib/docker/overlay2/896e17878da52e586cc1fc86d909b9b0fec5506d617fac1e6396b2e8ee460440/diff:/var/lib/docker/overlay2/9e69277824a9dd75026ea311accc9c0c05d396cbe93abf336af27e7856b961de/diff:/var/lib/docker/overlay2/ba280894a44b9ac48d3bf210a2c80f4a678b56c9d133bddb8b97d1c389cc6c37/diff:/var/lib/docker/overlay2/2b2a3ca3593517c2e0f216b544eb95b4c8b41b86a992c86ce9973a6dd013173c/diff:/var/lib/docker/overlay2/92a20c5b640f66826e39fee2caa59d396be3ab51ddadeb115a8e2d883009e7fc/diff:/var/lib/docker/overlay2/dbc069f83a0bc45148905f44b832c1f047a73d06af1b4475cafa887b486c62ab/diff:/var/lib/docker/overlay2/72dab58879f6a27fc06cc8f9af088bd28e640dd20fd519d2b005f16076f92445/diff:/var/lib/docker/overlay2/5cc12c0539fd1b827dc8a9240ad025aca7ec582bc2f75c5710bc004e0724348a/diff",
+                "MergedDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged",
+                "UpperDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/diff",
+                "WorkDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/lib/modules",
+                "Destination": "/lib/modules",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "minikube",
+                "Source": "/var/lib/docker/volumes/minikube/_data",
+                "Destination": "/var",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "minikube",
+            "Domainname": "",
+            "User": "root",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "22/tcp": {},
+                "2376/tcp": {},
+                "32443/tcp": {},
+                "5000/tcp": {},
+                "8443/tcp": {}
+            },
+            "Tty": true,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "container=docker",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": null,
+            "Image": "gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/local/bin/entrypoint",
+                "/sbin/init"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "created_by.minikube.sigs.k8s.io": "true",
+                "mode.minikube.sigs.k8s.io": "minikube",
+                "name.minikube.sigs.k8s.io": "minikube",
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "20.04",
+                "role.minikube.sigs.k8s.io": ""
+            },
+            "StopSignal": "SIGRTMIN+3"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "0aa138ff9a61b7a3fac340cb9a337493d26a055b16557f8c8fa185489bd9c657",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/0aa138ff9a61",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "minikube": {
+                    "IPAMConfig": {
+                        "IPv4Address": "192.168.49.2"
+                    },
+                    "Links": null,
+                    "Aliases": [
+                        "1423d4e1733f",
+                        "minikube"
+                    ],
+                    "NetworkID": "914062cfd501c60253aa1867fc2005c2c729a5335810f1875640f0d217928991",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+
+-- /stdout --
+I0703 23:48:33.500546   22612 cli_runner.go:164] Run: docker logs --timestamps --details minikube
+W0703 23:48:33.766567   22612 cli_runner.go:211] docker logs --timestamps --details minikube returned with exit code 1
+W0703 23:48:33.766644   22612 errors.go:89] Failed to get postmortem logs. docker logs --timestamps --details minikube :docker logs --timestamps --details minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: open /var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b-json.log: read-only file system
+I0703 23:48:33.766810   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:34.114354   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:33.9854282 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:34.114490   22612 errors.go:98] postmortem docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:33.9854282 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:34.114642   22612 network_create.go:281] running [docker network inspect minikube] to gather additional debugging logs...
+I0703 23:48:34.114660   22612 cli_runner.go:164] Run: docker network inspect minikube
+I0703 23:48:34.376141   22612 network_create.go:286] output of [docker network inspect minikube]: -- stdout --
+[
+    {
+        "Name": "minikube",
+        "Id": "914062cfd501c60253aa1867fc2005c2c729a5335810f1875640f0d217928991",
+        "Created": "2022-05-06T23:45:28.2565728Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.49.0/24",
+                    "Gateway": "192.168.49.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "ep-b822ca9e7887884689d0180738b7f4adda97a0eb35431a2cfbac0d07b5eaf0fb": {
+                "Name": "minikube",
+                "EndpointID": "b822ca9e7887884689d0180738b7f4adda97a0eb35431a2cfbac0d07b5eaf0fb",
+                "MacAddress": "02:42:c0:a8:31:02",
+                "IPv4Address": "192.168.49.2/24",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "--icc": "",
+            "--ip-masq": "",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {
+            "created_by.minikube.sigs.k8s.io": "true"
+        }
+    }
+]
+
+-- /stdout --
+I0703 23:48:34.376324   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:34.716748   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:34.5926689 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:34.719043   22612 ssh_runner.go:195] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I0703 23:48:34.719112   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:34.981729   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:34.982034   22612 retry.go:31] will retry after 152.86204ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:35.136316   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:35.443104   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:35.443412   22612 retry.go:31] will retry after 447.046657ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:35.890659   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:36.171713   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:36.172002   22612 retry.go:31] will retry after 313.392379ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:36.485716   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:36.763694   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+W0703 23:48:36.763801   22612 start.go:275] error running df -h /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+W0703 23:48:36.763817   22612 start.go:242] error getting percentage of /var that is free: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:36.764244   22612 ssh_runner.go:195] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I0703 23:48:36.764313   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:37.054080   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:37.054177   22612 retry.go:31] will retry after 188.044792ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:37.243374   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:37.516351   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:37.516511   22612 retry.go:31] will retry after 268.493477ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:37.785650   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:38.050764   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:48:38.050917   22612 retry.go:31] will retry after 569.212484ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:38.621130   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:48:38.876683   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+W0703 23:48:38.876821   22612 start.go:290] error running df -BG /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+W0703 23:48:38.876841   22612 start.go:247] error getting GiB of /var that is available: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:48:38.876852   22612 fix.go:57] fixHost completed within 20.325527208s
+I0703 23:48:38.876868   22612 start.go:83] releasing machines lock for "minikube", held for 20.327467729s
+W0703 23:48:38.878771   22612 start.go:687] error starting host: driver start: start: docker start minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument
+Error: failed to start containers: minikube
+W0703 23:48:38.879114   22612 out.go:239] 🤦  StartHost failed, but will try again: driver start: start: docker start minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument
+Error: failed to start containers: minikube
+
+I0703 23:48:38.879140   22612 start.go:702] Will try again in 5 seconds ...
+I0703 23:48:43.879490   22612 start.go:364] acquiring machines lock for minikube: {Name:mk35ac0d70bbf964405e40c3937480693119125a Clock:{} Delay:500ms Timeout:10m0s Cancel:<nil>}
+I0703 23:48:43.879660   22612 start.go:368] acquired machines lock for "minikube" in 139.702µs
+I0703 23:48:43.879708   22612 start.go:96] Skipping create...Using existing machine configuration
+I0703 23:48:43.879714   22612 fix.go:55] fixHost starting: 
+I0703 23:48:43.880170   22612 cli_runner.go:164] Run: docker container inspect minikube --format={{.State.Status}}
+I0703 23:48:44.142383   22612 fix.go:103] recreateIfNeeded on minikube: state=Stopped err=<nil>
+W0703 23:48:44.142412   22612 fix.go:129] unexpected machine state, will restart: <nil>
+I0703 23:48:44.162311   22612 out.go:177] 🔄  Restarting existing docker container for "minikube" ...
+I0703 23:48:44.183543   22612 cli_runner.go:164] Run: docker start minikube
+W0703 23:48:58.495280   22612 cli_runner.go:211] docker start minikube returned with exit code 1
+I0703 23:48:58.495303   22612 cli_runner.go:217] Completed: docker start minikube: (14.311950872s)
+I0703 23:48:58.495518   22612 cli_runner.go:164] Run: docker inspect minikube
+I0703 23:48:58.757591   22612 errors.go:84] Postmortem inspect ("docker inspect minikube"): -- stdout --
+[
+    {
+        "Id": "1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b",
+        "Created": "2023-05-09T03:48:56.5183546Z",
+        "Path": "/usr/local/bin/entrypoint",
+        "Args": [
+            "/sbin/init"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 130,
+            "Error": "error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument",
+            "StartedAt": "2023-06-23T07:11:09.3603883Z",
+            "FinishedAt": "2023-07-04T06:47:12.5829513Z"
+        },
+        "Image": "sha256:67a4b1138d2d65c110e3ef7ba49c9e75d8d87f1150266297d90da979cfcc62e3",
+        "ResolvConfPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/hostname",
+        "HostsPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/hosts",
+        "LogPath": "/var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b-json.log",
+        "Name": "/minikube",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/lib/modules:/lib/modules:ro",
+                "minikube:/var"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "minikube",
+            "PortBindings": {
+                "22/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "2376/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "32443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ],
+                "8443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "0"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": true,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "seccomp=unconfined",
+                "apparmor=unconfined",
+                "label=disable"
+            ],
+            "Tmpfs": {
+                "/run": "",
+                "/tmp": ""
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 4194304000,
+            "NanoCpus": 2000000000,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 4194304000,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": null,
+            "ReadonlyPaths": null
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb-init/diff:/var/lib/docker/overlay2/53767edb2d390f5502704d5f6fdc79cbd2ed2f8ba016ded6fc2732ce58267655/diff:/var/lib/docker/overlay2/a5eb719f252a00f4dde541846451fedfb23052954ccfcce754a8d300fe8db098/diff:/var/lib/docker/overlay2/0048941754c44692fca938b6515781f04a88d528e4e5e15423fa5d0ace7383a3/diff:/var/lib/docker/overlay2/0e21ebb6acf5d94a52c3d3727fef37ed9f15b0b4fa6cbd1344f8c02daa2348c4/diff:/var/lib/docker/overlay2/f9f1c5b9365866ce2926717e53d832d4174d714aa35f73c1c0ad76f465706fe2/diff:/var/lib/docker/overlay2/6c81125365b17a01f90d43458af70e04bfd8054b2f4ae145dd669beb94ce2581/diff:/var/lib/docker/overlay2/f2a64dc84d828399147e7616bf74e31dc9aa17272e975ff20814b24ba33fa55a/diff:/var/lib/docker/overlay2/940eb35880011f27cef8e4d5e1453a259e5e7eb5085740c626a67230f270e75b/diff:/var/lib/docker/overlay2/6baabcabec1fecceb4ff23cb2d4373078ab535278d48e89f81aea7e61b244985/diff:/var/lib/docker/overlay2/b34751b4e1583f3e05d7b4b5d6d397baeddb97116491fd434d4aef5786282e4b/diff:/var/lib/docker/overlay2/b5953c66d2e8d13d46efd9f10a649815dbbb151c7cdacdc4cde38cd385b64ceb/diff:/var/lib/docker/overlay2/c2bda4786a82e8b020b761fdc6f5b37ca7e60899f7a69d02463b7600196affd7/diff:/var/lib/docker/overlay2/cbaf99310e8a942a07106c59b56a7f2a16cb2130fe9c40a6d9a64af10e493cf3/diff:/var/lib/docker/overlay2/cec3c10e295c957516655c4dc2a4a3387047d861db9d84252db6b1dbd864e780/diff:/var/lib/docker/overlay2/8428435cff3d3211ce1ad966d64362a92d0b71a6e4bd4461dc4c2761732919d5/diff:/var/lib/docker/overlay2/f32f6a20ae3b181b887fcabc92ad7ac0d444af9b0b1b9999620a146f83f826f4/diff:/var/lib/docker/overlay2/0c442d41a9d91e94e14a2884baf8c0c7484a35ba9effa5a064253e85899aa2ce/diff:/var/lib/docker/overlay2/c5727728fb5f765315aa1b54a41f45708755f257c1f23d670d96ae77c33cdd36/diff:/var/lib/docker/overlay2/32cd41ca5a3e8a7730068fc0b5f6e97d13d2e000412a97d4c4c2474b4bd8b5bf/diff:/var/lib/docker/overlay2/d4b7d9b5e491df4332283ceff1fce449ddb1060a8d905351a5d7bf4a4f3f3a92/diff:/var/lib/docker/overlay2/64214d0a485b3f7c2d2724f68439923ff7c628ed6354c176d07db1edf86b9952/diff:/var/lib/docker/overlay2/486b26417d1c5efc0adf3a366ca4d9dddda5f6d3b81c64a1a991df2abd5bca6f/diff:/var/lib/docker/overlay2/17fceffe3d5885669a773764fcfe71f49de92f8e43863577ce8984303b12fce3/diff:/var/lib/docker/overlay2/1e65b9cd05b4760409539b7ce494e9898da4eb3f025f402264f72a20d966aa83/diff:/var/lib/docker/overlay2/782a8bd5ae7d1b1786b4ea53b429caf9a75e381bf1753184bf5c7a9b919dae32/diff:/var/lib/docker/overlay2/f7ab68be00e93e1d6bcc6098d78c76923510c5eb446528f91df838fdb7d6c921/diff:/var/lib/docker/overlay2/4fabdfc5031aee090afd0586f4a84b6c7c50c3a8e9d8bc51f02750f7c3ce41cd/diff:/var/lib/docker/overlay2/b27616930e8632fde0df2e4e05db92b5d74b214e0f32de0b90c9bd301685e74a/diff:/var/lib/docker/overlay2/5017cdb7ac12a046e3991289e29471a74c20247df46dfa98e3f91713feaaa512/diff:/var/lib/docker/overlay2/b537dd830f18b136089a2080591189fda7f2a6d9919bf50ac34a2595f8dc78b7/diff:/var/lib/docker/overlay2/187dbc40c950372260fc529eadec7059b92743d03628c1305010bf1120dc5de4/diff:/var/lib/docker/overlay2/beb83ce9d06ad92de52adc16420964374dc59aa26646c025c58ed845d98a32a5/diff:/var/lib/docker/overlay2/442cbce5c0af1990a7c76f1ac53425182828847b37ab113f09639e2c7797da27/diff:/var/lib/docker/overlay2/058f15a1f159492760c7aa13c42ae4b73c58431a15df17763a7da17940c355c8/diff:/var/lib/docker/overlay2/896e17878da52e586cc1fc86d909b9b0fec5506d617fac1e6396b2e8ee460440/diff:/var/lib/docker/overlay2/9e69277824a9dd75026ea311accc9c0c05d396cbe93abf336af27e7856b961de/diff:/var/lib/docker/overlay2/ba280894a44b9ac48d3bf210a2c80f4a678b56c9d133bddb8b97d1c389cc6c37/diff:/var/lib/docker/overlay2/2b2a3ca3593517c2e0f216b544eb95b4c8b41b86a992c86ce9973a6dd013173c/diff:/var/lib/docker/overlay2/92a20c5b640f66826e39fee2caa59d396be3ab51ddadeb115a8e2d883009e7fc/diff:/var/lib/docker/overlay2/dbc069f83a0bc45148905f44b832c1f047a73d06af1b4475cafa887b486c62ab/diff:/var/lib/docker/overlay2/72dab58879f6a27fc06cc8f9af088bd28e640dd20fd519d2b005f16076f92445/diff:/var/lib/docker/overlay2/5cc12c0539fd1b827dc8a9240ad025aca7ec582bc2f75c5710bc004e0724348a/diff",
+                "MergedDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged",
+                "UpperDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/diff",
+                "WorkDir": "/var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/lib/modules",
+                "Destination": "/lib/modules",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "minikube",
+                "Source": "/var/lib/docker/volumes/minikube/_data",
+                "Destination": "/var",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "minikube",
+            "Domainname": "",
+            "User": "root",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "22/tcp": {},
+                "2376/tcp": {},
+                "32443/tcp": {},
+                "5000/tcp": {},
+                "8443/tcp": {}
+            },
+            "Tty": true,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "container=docker",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": null,
+            "Image": "gcr.io/k8s-minikube/kicbase:v0.0.39@sha256:bf2d9f1e9d837d8deea073611d2605405b6be904647d97ebd9b12045ddfe1106",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/local/bin/entrypoint",
+                "/sbin/init"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "created_by.minikube.sigs.k8s.io": "true",
+                "mode.minikube.sigs.k8s.io": "minikube",
+                "name.minikube.sigs.k8s.io": "minikube",
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "20.04",
+                "role.minikube.sigs.k8s.io": ""
+            },
+            "StopSignal": "SIGRTMIN+3"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "0aa138ff9a61b7a3fac340cb9a337493d26a055b16557f8c8fa185489bd9c657",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/0aa138ff9a61",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "minikube": {
+                    "IPAMConfig": {
+                        "IPv4Address": "192.168.49.2"
+                    },
+                    "Links": null,
+                    "Aliases": [
+                        "1423d4e1733f",
+                        "minikube"
+                    ],
+                    "NetworkID": "914062cfd501c60253aa1867fc2005c2c729a5335810f1875640f0d217928991",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+
+-- /stdout --
+I0703 23:48:58.757726   22612 cli_runner.go:164] Run: docker logs --timestamps --details minikube
+W0703 23:48:59.022854   22612 cli_runner.go:211] docker logs --timestamps --details minikube returned with exit code 1
+W0703 23:48:59.022910   22612 errors.go:89] Failed to get postmortem logs. docker logs --timestamps --details minikube :docker logs --timestamps --details minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: open /var/lib/docker/containers/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b/1423d4e1733f31cb3c42c51619bcae8fb7b39996471fb0bfd571056589858b3b-json.log: read-only file system
+I0703 23:48:59.023056   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:59.366836   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:59.2328583 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:59.366954   22612 errors.go:98] postmortem docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:59.2328583 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:59.367063   22612 network_create.go:281] running [docker network inspect minikube] to gather additional debugging logs...
+I0703 23:48:59.367101   22612 cli_runner.go:164] Run: docker network inspect minikube
+I0703 23:48:59.627895   22612 network_create.go:286] output of [docker network inspect minikube]: -- stdout --
+[
+    {
+        "Name": "minikube",
+        "Id": "914062cfd501c60253aa1867fc2005c2c729a5335810f1875640f0d217928991",
+        "Created": "2022-05-06T23:45:28.2565728Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.49.0/24",
+                    "Gateway": "192.168.49.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "ep-b822ca9e7887884689d0180738b7f4adda97a0eb35431a2cfbac0d07b5eaf0fb": {
+                "Name": "minikube",
+                "EndpointID": "b822ca9e7887884689d0180738b7f4adda97a0eb35431a2cfbac0d07b5eaf0fb",
+                "MacAddress": "02:42:c0:a8:31:02",
+                "IPv4Address": "192.168.49.2/24",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "--icc": "",
+            "--ip-masq": "",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {
+            "created_by.minikube.sigs.k8s.io": "true"
+        }
+    }
+]
+
+-- /stdout --
+I0703 23:48:59.628047   22612 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0703 23:48:59.964382   22612 info.go:266] docker info: {ID:EBQL:GZGN:Z7QS:MYHS:LF7K:ZDJT:4LZN:TTKH:5ITM:H7CI:DHE5:LGSA Containers:20 ContainersRunning:14 ContainersPaused:0 ContainersStopped:6 Images:20 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:true BridgeNfIP6Tables:true Debug:true NFd:129 OomKillDisable:false NGoroutines:110 SystemTime:2023-07-04 06:48:59.8358472 +0000 UTC LoggingDriver:json-file CgroupDriver:cgroupfs NEventsListener:3 KernelVersion:5.10.104-linuxkit OperatingSystem:Docker Desktop OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:8346984448 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy:http.docker.internal:3128 HTTPSProxy:http.docker.internal:3128 NoProxy:hubproxy.docker.internal Name:docker-desktop Labels:[] ExperimentalBuild:false ServerVersion:20.10.13 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc Expected:2a1d4dbdb2a1030dc5b01e96fb110a9d9f150ecc} RuncCommit:{ID:v1.0.3-0-gf46b6ba Expected:v1.0.3-0-gf46b6ba} InitCommit:{ID:de40ad0 Expected:de40ad0} SecurityOptions:[name=seccomp,profile=default name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/local/lib/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.8.1] map[Name:compose Path:/usr/local/lib/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:v2.3.3] map[Name:scan Path:/usr/local/lib/docker/cli-plugins/docker-scan SchemaVersion:0.1.0 ShortDescription:Docker Scan Vendor:Docker Inc. Version:v0.17.0]] Warnings:<nil>}}
+I0703 23:48:59.964652   22612 ssh_runner.go:195] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I0703 23:48:59.964744   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:00.228038   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:00.228136   22612 retry.go:31] will retry after 163.335142ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:00.392694   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:00.653374   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:00.653495   22612 retry.go:31] will retry after 381.837294ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:01.036535   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:01.326812   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:01.326905   22612 retry.go:31] will retry after 425.790302ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:01.753922   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:02.012510   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+W0703 23:49:02.012643   22612 start.go:275] error running df -h /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+W0703 23:49:02.012661   22612 start.go:242] error getting percentage of /var that is free: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:02.012795   22612 ssh_runner.go:195] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I0703 23:49:02.012860   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:02.298655   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:02.298757   22612 retry.go:31] will retry after 229.499017ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:02.529452   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:02.792294   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:02.792402   22612 retry.go:31] will retry after 453.753838ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:03.247466   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:03.514877   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+I0703 23:49:03.514987   22612 retry.go:31] will retry after 443.45761ms: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:03.959660   22612 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+W0703 23:49:04.248513   22612 cli_runner.go:211] docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube returned with exit code 1
+W0703 23:49:04.248632   22612 start.go:290] error running df -BG /var: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+W0703 23:49:04.248649   22612 start.go:247] error getting GiB of /var that is available: NewSession: new client: new client: Error creating new ssh host from driver: Error getting ssh port for driver: get ssh host-port: unable to inspect a not running container to get SSH port
+I0703 23:49:04.248659   22612 fix.go:57] fixHost completed within 20.369406948s
+I0703 23:49:04.248681   22612 start.go:83] releasing machines lock for "minikube", held for 20.369475525s
+W0703 23:49:04.248906   22612 out.go:239] 😿  Failed to start docker container. Running "minikube delete" may fix it: driver start: start: docker start minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument
+Error: failed to start containers: minikube
+
+I0703 23:49:04.286023   22612 out.go:177] 
+W0703 23:49:04.306822   22612 out.go:239] ❌  Exiting due to GUEST_PROVISION: error provisioning guest: Failed to start host: driver start: start: docker start minikube: exit status 1
+stdout:
+
+stderr:
+Error response from daemon: error creating overlay mount to /var/lib/docker/overlay2/519949ac79c1ac9f14ed227f096d1a22a50d7d053a90eb6989d1bd850dcef4eb/merged: invalid argument
+Error: failed to start containers: minikube
+
+W0703 23:49:04.306851   22612 out.go:239] 
+W0703 23:49:04.309443   22612 out.go:239] [31m╭───────────────────────────────────────────────────────────────────────────────────────────╮[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    😿  If the above advice does not help, please let us know:                             [31m│[0m
+[31m│[0m    👉  https://github.com/kubernetes/minikube/issues/new/choose                           [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m│[0m    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    [31m│[0m
+[31m│[0m                                                                                           [31m│[0m
+[31m╰───────────────────────────────────────────────────────────────────────────────────────────╯[0m
+I0703 23:49:04.413999   22612 out.go:177] 
+
+* 

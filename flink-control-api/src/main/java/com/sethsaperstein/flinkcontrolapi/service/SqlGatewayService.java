@@ -86,7 +86,7 @@ public class SqlGatewayService {
         logger.info("Creating pod: {}", podName);
         String jobManagerRpcAddress = name + "." + namespace.getMetadata().getName();
         Map<String, String> labels = new HashMap<>();
-        labels.put("app", name);
+        labels.put("app", podName);
         Pod pod = new PodBuilder()
             .withNewMetadata()
                 .withName(podName)
@@ -98,7 +98,8 @@ public class SqlGatewayService {
                 .addNewContainer()
                     .withName("sql-gateway")
                     .withImage("flink:1.16")
-                    .withCommand(
+//                    .withImage("flink16:local2")
+                    .withArgs(
                         "/opt/flink/bin/sql-gateway.sh",
                         "start-foreground",
                         "-Dsql-gateway.endpoint.rest.address=localhost")
@@ -106,18 +107,8 @@ public class SqlGatewayService {
                         .withName("JOB_MANAGER_RPC_ADDRESS")
                         .withValue(jobManagerRpcAddress)
                     .endEnv()
-//                    .addNewVolumeMount()
-//                        .withName("config-volume")
-//                        .withMountPath("/opt/flink/conf")
-//                    .endVolumeMount()
                 .endContainer()
-//                .addNewVolume()
-//                    .withName("config-volume")
-//                    .withNewConfigMap()
-//                        .withName(configMap.getMetadata().getName())
-//                    .endConfigMap()
-//                .endVolume()
-                .endSpec()
+            .endSpec()
             .build();
 
         return kubernetesClient.pods().resource(pod).create();

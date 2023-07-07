@@ -9,35 +9,30 @@ import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterDeleteRequest;
 import com.sethsaperstein.flinkcontrolapi.model.FlinkClusterDeleteResponse;
 import com.sethsaperstein.flinkcontrolapi.util.Utils;
 import io.fabric8.kubernetes.api.model.Pod;
-import io.fabric8.kubernetes.api.model.StatusDetails;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
 import org.apache.flink.kubernetes.operator.api.lifecycle.ResourceLifecycleState;
+import org.apache.flink.table.data.RowData;
+import org.apache.flink.table.gateway.rest.message.session.OpenSessionRequestBody;
+import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBody;
+import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
+import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
+import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.*;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 //@RunWith(SpringRunner.class)
@@ -52,7 +47,8 @@ public class FlinkClusterCreateRequestControllerIT {
 //    @Value("${app.port}")
     private final int port = 8888;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     KubernetesClientManager kubernetesClientManager;
@@ -134,7 +130,7 @@ public class FlinkClusterCreateRequestControllerIT {
         // Create a request entity with the desired cluster name
         HttpEntity<FlinkClusterCreateRequest> requestEntity = new HttpEntity<>(flinkClusterCreateRequestRequest, headers);
 
-        // Perform the HTTP POST request
+        // Create cluster
         ResponseEntity<FlinkClusterCreateResponse> responseEntity = restTemplate.exchange(
             "http://localhost:" + port + "/cluster/session",
             HttpMethod.POST,
@@ -155,6 +151,38 @@ public class FlinkClusterCreateRequestControllerIT {
             List.of(ResourceLifecycleState.DEPLOYED, ResourceLifecycleState.STABLE),
             flinkDeploymentClientManager.getFlinkDeploymentClient()
         ));
+
+        // create session in session cluster
+        OpenSessionRequestBody openSessionRequestBody = new OpenSessionRequestBody(null, null);
+        ResponseEntity<OpenSessionResponseBody> createSessionResponse = restTemplate.postForEntity(
+            "http://localhost:" + port + "/sql/" + clusterName + "/v1/sessions",
+            openSessionRequestBody,
+            OpenSessionResponseBody.class);
+        assertEquals(HttpStatus.OK, createSessionResponse.getStatusCode());
+        assertNotNull(createSessionResponse.getBody());
+        String sessionHandle = createSessionResponse.getBody().getSessionHandle();
+
+        // Execute select 1 statement
+        String statement = "SELECT 1";
+        ExecuteStatementRequestBody executeStatementRequestBody = new ExecuteStatementRequestBody(statement);
+        ResponseEntity<ExecuteStatementResponseBody> executeStatementResponse = restTemplate.postForEntity(
+            "http://localhost" + port + "/sql/" + clusterName + "/v1/sessions/" + sessionHandle + "/statements/",
+            executeStatementRequestBody,
+            ExecuteStatementResponseBody.class);
+        assertEquals(HttpStatus.OK, executeStatementResponse.getStatusCode());
+        assertNotNull(executeStatementResponse.getBody());
+        String operationHandle = executeStatementResponse.getBody().getOperationHandle();
+
+        // Get operation result
+        ResponseEntity<FetchResultsResponseBody> fetchResultsResponse = restTemplate.getForEntity(
+            "http://localhost" + port + "/sql/" + clusterName + "/v1/sessions/" + sessionHandle
+            + "/operations/" + operationHandle + "/result/" + "0",
+            FetchResultsResponseBody.class
+        );
+        assertEquals(HttpStatus.OK, fetchResultsResponse.getStatusCode());
+        assertNotNull(fetchResultsResponse.getBody());
+        List<RowData> rowData = fetchResultsResponse.getBody().getResults().getData();
+        assertNotNull(rowData);
 
         // Delete the cluster
         FlinkClusterDeleteRequest deleteRequest = FlinkClusterDeleteRequest.builder().clusterName(clusterName).build();

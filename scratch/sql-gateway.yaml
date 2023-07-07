@@ -13,42 +13,50 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: session-test-sql-gateway
+  name: integ-sql-gateway
+  namespace: integ
   labels:
-    app: session-test-sql-gateway
+    app: integ
 spec:
-  serviceAccountName: sql-gateway
+  serviceAccountName: integ
   containers:
-    - name: my-app-container
-      image: sql-gateway:local9
-      imagePullPolicy: Never
+    - name: sql-gateway
+#      image: sql-gateway:local9
+      image: flink:1.16
+      # image: flink16:local1
+      command: ["/opt/flink/bin/sql-gateway.sh", "start-foreground", "-Dsql-gateway.endpoint.rest.address=localhost"]
+#      imagePullPolicy: Never
       ports:
         - containerPort: 8083
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: sql-gateway
+      env:
+        - name: JOB_MANAGER_RPC_ADDRESS
+          value: integ.integ
 
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: sql-gateway
-rules:
-  - apiGroups: [""]
-    resources: ["services"]
-    verbs: ["get", "list"]  # Adjust the verbs according to your requirements
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: sql-gateway
-subjects:
-  - kind: ServiceAccount
-    name: sql-gateway
-roleRef:
-  kind: Role
-  name: sql-gateway
-  apiGroup: rbac.authorization.k8s.io
+#---
+#apiVersion: v1
+#kind: ServiceAccount
+#metadata:
+#  name: sql-gateway
+#
+#---
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: Role
+#metadata:
+#  name: sql-gateway
+#rules:
+#  - apiGroups: [""]
+#    resources: ["services"]
+#    verbs: ["get", "list"]  # Adjust the verbs according to your requirements
+#
+#---
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: RoleBinding
+#metadata:
+#  name: sql-gateway
+#subjects:
+#  - kind: ServiceAccount
+#    name: sql-gateway
+#roleRef:
+#  kind: Role
+#  name: sql-gateway
+#  apiGroup: rbac.authorization.k8s.io

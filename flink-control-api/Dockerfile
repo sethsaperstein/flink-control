@@ -10,11 +10,11 @@ COPY pom.xml ./
 # Download the project dependencies
 RUN apt-get update && apt-get install -y maven
 
+# Force build
+ENV CACHE_BUST=8
+
 # Copy the application source code to the container
 COPY src ./src
-
-# Force build
-ENV CACHE_BUST=1
 
 # Build the application using Maven
 RUN mvn clean package -DskipTests
